@@ -4,14 +4,11 @@ import java.util.Random;
 
 public class Order {
 	private int torder, treq;
-	private int num ;
-	private static int n = 1 ;
 	private int npp=0 , npc=0 , nps=0 , npm=0 ,npf=0 ;
 	private int pittes;
-	
-	public Order() {
+
+	public Order( ) {
 		numberOfpittes();
-		num = n ++;
 		randomTorder();
 		randomTreq( torder , pittes );
 	}
@@ -88,8 +85,7 @@ public class Order {
 	}
 	public String toString () {
 		String order="";
-		
-		order+= "< " + num + " " + torder + "," + treq + "," + npp + "," + npc + "," + nps + "," + npm + "," + npf +" >";
+		order+= torder + ", " + treq + ", " + npp + ", " + npc + ", " + nps + ", " + npm + ", " + npf;
 		return order;
 	}
 	
