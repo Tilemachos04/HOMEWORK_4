@@ -7,26 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDelivery {
-	
-	private int []eqp; // an array that consists of all the equipment
+
 	private int [][]orders; // a two-dimensional array that has all the data generated from OrderGenerator
-	String [][]deliveries; // a two-dimensional array that has everything that is going to be printed on deliveries.txt
-	//private algorithm A;
+	private String [][]deliveries; // a two-dimensional array that has everything that is going to be printed on deliveries.txt
+	private Algorithm A;
+	Fuku fuku;
 	
-	public OrderDelivery(int M, int T, int N, int C, int X, int Y, int Z, int num, int [][]orders) {
+	public OrderDelivery(int M, int T, int N, int C, int X, int Y, int Z, int num, int [][]orders , Algorithm A) {
 		
-		this.eqp[0] = M;
-		this.eqp[1] = T;
-		this.eqp[2] = N;
-		this.eqp[3] = C;
-		this.eqp[4] = X;
-		this.eqp[5] = Y;
-		this.eqp[6] = Z;
+		fuku = new Fuku( M, T, N, C, X, Y, Z );
+	    this.A = A;
 		
 		for (int r = 0; r < num; r++)
 			for (int c = 0; c < 8; c++)
 				this.orders[r][c] = orders[r][c];
 		
+	}
+	public void callAlgorithm () {
+		A.resultsBasedOnAlgorithm;
 	}
 	
 public static void main(String[] args) {
