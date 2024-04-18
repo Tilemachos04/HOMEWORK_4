@@ -2,6 +2,13 @@ package hw4;
 
 public class GrillTimeGenerator { // an object that generates how much time every part of an order is going to need to be ready
 	
+	// the length of the following arrays
+	private int porkChisels;
+	private int chickenChisels;
+	private int shieftaliaChisels;
+	private int pittes;
+	private int potatoes;
+	
 	// all arrays have a number on each filed
 	private int []porkTime; // each number represents how much time each pork chisel is going to require to be ready 
 	private int []chickenTime; // each number represents how much time each chicken chisel is going to require to be ready
@@ -11,26 +18,41 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 	
 	public GrillTimeGenerator(Errand order) {
 		
-		// the length of each array depends on the order's requirements
-		int []porkTime = new int[order.getPorkChisels()];
-		int []chickenTime = new int[order.getChickenChisels()];
-		int []shieftaliaTime = new int[order.getShieftaliaChisels()];
-		int []pittaTime = new int[order.getPittes()];
-		int []potatoesTime = new int[order.getPotatoes()];
+		porkChisels = order.getPorkChisels();
+		chickenChisels = order.getChickenChisels();
+		shieftaliaChisels = order.getShieftaliaChisels();
+		pittes = order.getPittes();
+		potatoes = order.getPotatoes();
 		
-		for (int i = 0; i < porkTime.length; i++)
+		// the length of each array depends on the order's requirements
+		if (porkChisels > 0)
+			porkTime = new int[porkChisels];
+		
+		if (chickenChisels > 0)
+			chickenTime = new int[chickenChisels];
+		
+		if (shieftaliaChisels > 0)
+			shieftaliaTime = new int[shieftaliaChisels];
+		
+		if (pittes > 0)
+			pittaTime = new int[pittes];
+		
+		if (potatoes > 0)
+			potatoesTime = new int[potatoes];
+		
+		for (int i = 0; i < porkChisels; i++)
 			porkTime[i] = PorkChiselTime(); // each pork chisel requires 20-25 minutes to be ready
 		
-		for (int i = 0; i < porkTime.length; i++)
+		for (int i = 0; i < chickenChisels; i++)
 			chickenTime[i] = ChickenChiselTime(); // each chicken chisel requires 15-20 minutes to be ready
 		
-		for (int i = 0; i < shieftaliaTime.length; i++)
+		for (int i = 0; i < shieftaliaChisels; i++)
 			shieftaliaTime[i] = 25; // each shieftalia chisel requires 25 minutes to be ready
 			
-		for (int i = 0; i < pittaTime.length; i++)
+		for (int i = 0; i < pittes; i++)
 			pittaTime[i] = 5; // each pitta requires 5 minutes to be ready
 		
-		for (int i = 0; i < potatoesTime.length; i++)
+		for (int i = 0; i < potatoes; i++)
 			potatoesTime[i] = 20; // each potato portion requires 20 minutes to be ready
 		
 	}
@@ -63,19 +85,19 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		// decreases the time of each of the order's requirements by one, one minute passed
 		
-		for (int i = 0; i < porkTime.length; i++)
+		for (int i = 0; i < porkChisels; i++)
 			porkTime[i] -= 1;
 		
-		for (int i = 0; i < chickenTime.length; i++)
+		for (int i = 0; i < chickenChisels; i++)
 			chickenTime[i] -= 1;
 		
-		for (int i = 0; i < shieftaliaTime.length; i++)
+		for (int i = 0; i < shieftaliaChisels; i++)
 			shieftaliaTime[i] -= 1;
 			
-		for (int i = 0; i < pittaTime.length; i++)
+		for (int i = 0; i < pittes; i++)
 			pittaTime[i] -= 1;
 		
-		for (int i = 0; i < potatoesTime.length; i++)
+		for (int i = 0; i < potatoes; i++)
 			potatoesTime[i] -= 1;
 		
 	}
@@ -86,7 +108,7 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		int emptyPork = 0;
 		
-		for (int i = 0; i < porkTime.length; i++)
+		for (int i = 0; i < porkChisels; i++)
 			if (porkTime[i] == 0)
 				emptyPork++;
 		
@@ -100,7 +122,7 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		int emptyChicken = 0;
 		
-		for (int i = 0; i < chickenTime.length; i++)
+		for (int i = 0; i < chickenChisels; i++)
 			if (chickenTime[i] == 0)
 				emptyChicken++;
 		
@@ -114,7 +136,7 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		int emptyShieftalia = 0;
 		
-		for (int i = 0; i < shieftaliaTime.length; i++)
+		for (int i = 0; i < shieftaliaChisels; i++)
 			if (shieftaliaTime[i] == 0)
 				emptyShieftalia++;
 		
@@ -128,7 +150,7 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		int emptyPitta = 0;
 		
-		for (int i = 0; i < pittaTime.length; i++)
+		for (int i = 0; i < pittes; i++)
 			if (pittaTime[i] == 0)
 				emptyPitta++;
 		
@@ -142,7 +164,7 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		int emptyPotatoes = 0;
 		
-		for (int i = 0; i < potatoesTime.length; i++)
+		for (int i = 0; i < potatoes; i++)
 			if (potatoesTime[i] == 0)
 				emptyPotatoes++;
 		
@@ -153,6 +175,9 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 	public boolean IsAllPorkReady(int num) {
 		
 		// returns if all the pork chisels of the order are finished
+		
+		if (porkChisels < 1)
+			return true;
 		
 		if (num == porkTime.length)
 			return true;
@@ -165,6 +190,9 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		// returns if all the chicken chisels of the order are finished
 		
+		if (chickenChisels < 1)
+			return true;
+		
 		if (num == chickenTime.length)
 			return true;
 		
@@ -175,6 +203,9 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 	public boolean AreAllShieftaliesReady(int num) {
 		
 		// returns if all the shieftalia chisels of the order are finished
+		
+		if (shieftaliaChisels < 1)
+			return true;
 		
 		if (num == shieftaliaTime.length)
 			return true;
@@ -187,6 +218,9 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 		
 		// returns if all the pittes of the order are finished
 		
+		if (pittes < 1)
+			return true;
+		
 		if (num == pittaTime.length)
 			return true;
 		
@@ -197,6 +231,9 @@ public class GrillTimeGenerator { // an object that generates how much time ever
 	public boolean AreAllPotatoesReady(int num) {
 		
 		// returns if all the potato portions of the order are finished
+		
+		if (potatoes < 1)
+			return true;
 		
 		if (num == potatoesTime.length)
 			return true;
