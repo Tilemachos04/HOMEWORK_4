@@ -8,31 +8,89 @@ import java.util.List;
 
 public class OrderDelivery {
 
-	private int [][]orders; // a two-dimensional array that has all the data generated from OrderGenerator
-	private String [][]deliveries; // a two-dimensional array that has everything that is going to be printed on deliveries.txt
-	private Algorithm A;
-	Fuku fuku;
+	private int M; // fuku capacity
+	private int T; // coal preparation time
+	private int NC; // number of totals pans multiplied by the capacity of each pan
+	private int X; // the space every chisel of souvlaki occupies
+	private int Y; // the space every chisel of shieftalia occupies
+	private int Z; // the space every pitta occupies
 	
-	public OrderDelivery(int M, int T, int N, int C, int X, int Y, int Z, int num, int [][]orders , Algorithm A) {
+	public OrderDelivery(int M, int T, int N, int C, int X, int Y, int Z) {
 		
-		fuku = new Fuku( M, T, N, C, X, Y, Z );
-	    this.A = A;
-		
-		for (int r = 0; r < num; r++)
-			for (int c = 0; c < 8; c++)
-				this.orders[r][c] = orders[r][c];
+		this.M = M;
+		this.T = T;
+		this.NC = N * C;
+		this.X = X;
+		this.Y = Y;
+		this.Z = Z;
 		
 	}
-	public void callAlgorithm () {
-		A.resultsBasedOnAlgorithm;
+	
+	public boolean Availability(Errand order) { 
+		
+		if (IsFukuAvailable(this.OrderSpace(order), this.PortionsOfPotatoes(order))) {
+			this.FukuAdder(order);
+			return true;
+		}
+		
+		return false;
+		
 	}
+	
+	public int OrderSpace(Errand order) {
+		
+		int orderSpace, souvlakiSpace, shieftaliaSpace, pittaSpace;
+		
+		souvlakiSpace = (order.getPorkChisels() + order.getChickenChisels())*this.X;
+		
+		shieftaliaSpace = order.getShieftaliaChisels() * this.Y;
+		
+		pittaSpace = order.getPittes() * this.Z;
+		
+		orderSpace = souvlakiSpace + shieftaliaSpace + pittaSpace;
+		
+		return orderSpace;
+		
+	}
+	
+	public int PortionsOfPotatoes(Errand order) {
+		
+		int portionsOfPotatoes;
+		
+		portionsOfPotatoes = order.getPotatoes();
+		
+		return portionsOfPotatoes;
+		
+	}
+	
+	public boolean IsFukuAvailable(int orderSpace, int portionsOfPotatoes) {
+		
+		if (orderSpace <= this.M && portionsOfPotatoes <= this.NC)
+			return true;
+		
+		return false;
+		
+	}
+	
+	public void FukuAdder(Errand order) {
+		
+		this.M -= this.OrderSpace(order);
+		this.NC -= this.PortionsOfPotatoes(order);
+		
+	}
+	
+	public void FukuRemover() {
+		
+		
+	}
+	
 	
 public static void main(String[] args) {
 	
 	if (args.length != 8 || Integer.parseInt(args[7]) > 3 && Integer.parseInt(args[7])<1)
 		System.err.println("Error");
 	
-	int M = Integer.parseInt(args[0]), T = Integer.parseInt(args[1]), N = Integer.parseInt(args[2]), C = Integer.parseInt(args[3]), X = Integer.parseInt(args[4]), Y = Integer.parseInt(args[5]), Z = Integer.parseInt(args[6]), A = Integer.parseInt(args[7]);
+	int M = Integer.parseInt(args[0]), T = Integer.parseInt(args[1]), N = Integer.parseInt(args[2]), C = Integer.parseInt(args[3]), X = Integer.parseInt(args[4]), Y = Integer.parseInt(args[5]), Z = Integer.parseInt(args[6]), algo = Integer.parseInt(args[7]);
 	
 		
 	List<int[]> list = new ArrayList<>();
@@ -110,23 +168,22 @@ public static void main(String[] args) {
 	
 	int orders[][] = new int[list.size()][8];
 	
+	// copying the list into a two-dimensional array, for more convenient processing
     for (int r = 0; r < list.size(); r++) {
         int[] array = list.get(r);
-        // Iterate through each element in the array
         for (int c = 0; c < array.length; c++) {
             int element = array[c];
             orders[r][c] = element;
         }
     }
     
-    for (int r = 0; r < list.size(); r++) {
-    	for (int c = 0; c<8; c++)
-    		System.out.print(orders[r][c] + " ");
-    	System.out.println();
-    }
-    
+    OrderDelivery od = new OrderDelivery(M, T, N, C, X, Y, Z);
 
-	
+    //if (algo == 1) {
+    	Algorithm1 A = new Algorithm1(od, orders, orders.length);
+    //}
+    
+    A.ResultsBasedOnAlgorithm();
     
 }
 

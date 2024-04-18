@@ -76,25 +76,108 @@ public class GrillTimeGenerator {
 		
 	}
 	
-	public int GrillReady() {
+	public int PorkReady() {
 		
-		int emptyPork = 0, emptyChicken = 0, emptyShieftalia = 0, emptyPitta = 0;
+		int emptyPork = 0;
 		
 		for (int i = 0; i < porkTime.length; i++)
 			if (porkTime[i] == 0)
 				emptyPork++;
 		
+		return emptyPork;
+		
+	}
+	
+	public int ChickenReady() {
+		
+		int emptyChicken = 0;
+		
 		for (int i = 0; i < chickenTime.length; i++)
 			if (chickenTime[i] == 0)
 				emptyChicken++;
 		
+		return emptyChicken;
+		
+	}
+	
+	public int ShieftaliesReady() {
+		
+		int emptyShieftalia = 0;
+		
 		for (int i = 0; i < shieftaliaTime.length; i++)
 			if (shieftaliaTime[i] == 0)
 				emptyShieftalia++;
-			
+		
+		return emptyShieftalia;
+		
+	}
+	
+	public int PittesReady() {
+		
+		int emptyPitta = 0;
+		
 		for (int i = 0; i < pittaTime.length; i++)
 			if (pittaTime[i] == 0)
 				emptyPitta++;
+		
+		return emptyPitta;
+		
+	}
+	
+	public int PotatoesReady() {
+		
+		int emptyPotatoes = 0;
+		
+		for (int i = 0; i < potatoesTime.length; i++)
+			if (potatoesTime[i] == 0)
+				emptyPotatoes++;
+		
+		return emptyPotatoes;
+		
+	}
+	
+	public boolean IsAllPorkReady(int num) {
+		
+		if (num == porkTime.length)
+			return true;
+		
+		return false;
+		
+	}
+	
+	public boolean IsAllChickenReady(int num) {
+		
+		if (num == chickenTime.length)
+			return true;
+		
+		return false;
+		
+	}
+	
+	public boolean AreAllShieftaliesReady(int num) {
+		
+		if (num == shieftaliaTime.length)
+			return true;
+		
+		return false;
+		
+	}
+	
+	public boolean AreAllPittesReady(int num) {
+		
+		if (num == pittaTime.length)
+			return true;
+		
+		return false;
+		
+	}
+	
+	public boolean AreAllPotatoesReady(int num) {
+		
+		if (num == potatoesTime.length)
+			return true;
+		
+		return false;
 		
 	}
 }

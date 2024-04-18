@@ -2,5 +2,10 @@ package hw4;
 
 public abstract class Algorithm {
 	
-	public abstract String resultsBasedOnAlgorithm();
+	OrderDelivery od;
+	int [][]orders;
+	int [][]deliveries;
+	
+	public abstract void ResultsBasedOnAlgorithm();
+	
 }
